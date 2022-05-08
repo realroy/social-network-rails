@@ -1,0 +1,18 @@
+<h1>Interests</h1>
+<%= form_for current_user.user_profile, url: onboardings_interests_path do |f| %>
+  <%= current_user.user_profile.errors.full_messages %>
+
+  <div>
+    <%= f.fields_for :user_profile_interests, @gender_user_profile_interest do |user_profile_interest_form| %>
+      <% @suggest_interestes.each do |interest| %>
+        <%= user_profile_interest_form.fields_for :interest, interest do |interest_form| %>
+          <%= interest_form.hidden_field :target, value: 'interests' %>
+          <%= interest_form.hidden_field :value, value: interest.value %>
+          <%= interest_form.hidden_field :operator, value: Interest::OPERATORS[:match] %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= f.submit 'Next' %>
+<% end %>

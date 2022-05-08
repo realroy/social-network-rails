@@ -1,0 +1,57 @@
+<h1>Personal Information</h1>
+<%= form_for current_user.user_profile, url: onboardings_personal_informations_path do |f| %>
+  <%= current_user.user_profile.errors.full_messages %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :born_at, 'Date of birth' %>
+    <%= f.date_field :born_at, required: true, min: 20.year.ago %>
+  </div>
+
+  <div>
+    <div>
+      <%= f.label :age %>
+      <%= f.text_field :age, readonly: true %>
+    </div>
+
+    <div>
+      <%= f.label :gender %>
+      <%= f.select :gender, UserProfile::GENDERS.values.map { |g| [g.capitalize, g] } %>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <%= f.label :height %>
+      <%= f.number_field :height %>
+    </div>
+    <div>
+      <%= f.label :weight %>
+      <%= f.number_field :weight %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.fields_for :user_profile_interests, @gender_user_profile_interest do |user_profile_interest_form| %>
+      <%= user_profile_interest_form.fields_for :interest, @gender_interest do |interest_form| %>
+        <%= interest_form.hidden_field :target, value: 'gender' %>
+        <%= interest_form.select :data, (UserProfile::GENDERS.values + ['both']).map { |g| [g.capitalize, g == 'both' ? 'all' : g] } %>
+        <%= interest_form.hidden_field :operator, value: Interest::OPERATORS[:match] %>
+      <% end %>
+    <% end %>
+    <%= f.fields_for :user_profile_interests, @age_user_profile_interest do |user_profile_interest_form| %>
+      <%= user_profile_interest_form.fields_for :interest, @age_interestt do |interest_form| %>
+        <%= interest_form.hidden_field :target, value: 'age' %>
+        <%= interest_form.label :from %>
+        <%= interest_form.number_field :data %>
+        <%= interest_form.label :to %>
+        <%= interest_form.number_field :data %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= f.submit 'Next' %>
+<% end %>

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  interest: one
+  user_profile: one
+
+two:
+  interest: two
+  user_profile: two

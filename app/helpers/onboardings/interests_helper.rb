@@ -1,0 +1,2 @@
+module Onboardings::InterestsHelper
+end

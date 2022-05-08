@@ -1,0 +1,2 @@
+module Onboardings::ProfilePictureHelper
+end
