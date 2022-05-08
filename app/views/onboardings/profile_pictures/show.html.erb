@@ -1,0 +1,9 @@
+<h1>Choose Your Profile Picture</h1>
+<%= form_for current_user, url: onboardings_profile_pictures_path do |f| %>
+  <% if current_user.profile_picture.representable? %>
+    <%= image_tag current_user.user_profile.profile_picture %>
+  <% end %>
+  <%= f.file_field :profile_picture %>
+  <%= f.submit :upload %>
+<% end %>
+<%= link_to 'Next', onboardings_bios_path %>

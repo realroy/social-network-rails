@@ -1,0 +1,8 @@
+<h1>Bio</h1>
+<%= form_for current_user.user_profile, url: onboardings_bios_path do |f| %>
+  <%= current_user.user_profile.errors.full_messages %>
+  <div>
+    <%= f.text_area :bio %>
+  </div>
+  <%= f.submit 'Next' %>
+<% end %>

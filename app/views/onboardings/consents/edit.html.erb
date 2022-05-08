@@ -1,8 +1,9 @@
 <h1>Consent</h1>
-<%= form_with do |f| %>
+<%= form_for current_user, url: onboardings_consents_path do |f| %>
+  <%= current_user.errors.full_messages %>
   <div>
-    <%= f.label :consents %>
-    <%= f.check_box :consents %>
+    <%= f.label :consent %>
+    <%= f.check_box :consent, required: true %>
   </div>
-  <%= f.submit %>
+  <%= f.submit 'Confirm' %>
 <% end %>

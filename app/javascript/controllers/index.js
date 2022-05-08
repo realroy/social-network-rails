@@ -5,4 +5,7 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
+import FacebookLoginController from "./facebook_login_controller"
+
 application.register("hello", HelloController)
+application.register("facebook-login", FacebookLoginController)

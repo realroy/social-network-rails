@@ -1,8 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %w[create destroy]
-  before_action do
-    redirect_to edit_onboardings_consents_path if authenticated?
-  end
+  before_action :redirect_if_authenticated?, except: [:destroy]
 
   def create
     if session_params[:provider_name] == 'facebook'
@@ -15,11 +13,13 @@ class SessionsController < ApplicationController
 
   def destroy
     current_access_token.destroy!
-
-    redirect_to root_path
   end
 
   private
+
+  def redirect_if_authenticated?
+    redirect_to edit_onboardings_consents_path if authenticated?
+  end
 
   def session_params
     params.require(:sessions)
